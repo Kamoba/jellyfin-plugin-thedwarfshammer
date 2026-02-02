@@ -1,0 +1,19 @@
+[
+  {
+    "guid": "a8f9f3e5-1234-5678-9abc-def012345678",
+    "name": "The Dwarf's Hammer",
+    "description": "Enhanced collection management, upcoming content discovery, and content organization for Jellyfin. Features include upcoming movies/series tabs, collection filtering, missing episode detection, and more.",
+    "overview": "Comprehensive enhancement suite for Jellyfin with TMDB integration",
+    "owner": "Kamoba",
+    "category": "General",        
+    "imageUrl": "https://raw.githubusercontent.com/Kamoba/jellyfin-plugin-thedwarfshammer/main/icon.png",
+    "versions": [{
+      "version": "1.0.0.0",
+      "changelog": "Initial release with upcoming content discovery, collection management, and enhanced UI features",
+      "targetAbi": "10.11.0.0",
+      "sourceUrl": "https://github.com/Kamoba/jellyfin-plugin-thedwarfshammer/releases/download/1.0.0.0/TDH.zip",
+      "checksum": "0d8a85fd1a8589141f67efb5d6be53ba",
+      "timestamp": "2025-01-31T00:00:00Z"
+    }]
+  }
+]

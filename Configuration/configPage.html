@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Dwarf's Hammer</title>
+</head>
+<body>
+    <div id="theDwarfsHammerConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select,emby-checkbox">
+        
+        <div data-role="content">
+            <div class="content-primary">
+                <form id="theDwarfsHammerConfigForm">
+                    
+                    <!-- Header -->
+                    <div class="verticalSection">
+                        <h2 class="sectionTitle">The Dwarf's Hammer Configuration</h2>
+                        <p style="margin: 1em 0;">
+                            Enhanced collection management, upcoming content discovery, and content organization for Jellyfin.
+                        </p>
+                    </div>
+
+                    <!-- API Configuration -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">API Configuration</h3>
+                        
+                        <div class="inputContainer">
+                            <label class="inputLabel" for="tmdbApiKey">TMDB API Key</label>
+                            <input type="password" id="tmdbApiKey" name="TmdbApiKey" class="emby-input" autocomplete="off" />
+                            <div class="fieldDescription">
+                                Required for Upcoming Movies and Series features. 
+                                Get your free API key from <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">TMDB</a>.
+                                The key is stored securely server-side and never exposed to clients.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature Toggles -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Features</h3>
+                        
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableUpcomingMovies" name="EnableUpcomingMovies" />
+                                <span>Enable Upcoming Movies</span>
+                            </label>
+                            <div class="fieldDescription checkboxFieldDescription">
+                                Adds an "Upcoming" tab to the Movies page showing coming soon and top-rated movies.
+                            </div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableUpcomingSeries" name="EnableUpcomingSeries" />
+                                <span>Enable Upcoming Series</span>
+                            </label>
+                            <div class="fieldDescription checkboxFieldDescription">
+                                Adds an "Upcoming" tab to the Series page showing upcoming episodes and trending series.
+                            </div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableNoCollectionFilter" name="EnableNoCollectionFilter" />
+                                <span>Enable "No Collection" Filter</span>
+                            </label>
+                            <div class="fieldDescription checkboxFieldDescription">
+                                Adds a filter to show only movies/series not in any collection.
+                            </div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableSeriesCollectionsTab" name="EnableSeriesCollectionsTab" />
+                                <span>Enable Series Collections Tab</span>
+                            </label>
+                            <div class="fieldDescription checkboxFieldDescription">
+                                Adds a "Collections" tab to the Series page to view only series in collections.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Cache Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Cache Settings</h3>
+                        
+                        <div class="inputContainer">
+                            <label class="inputLabel" for="upcomingMoviesCacheDuration">Upcoming Movies Cache Duration (minutes)</label>
+                            <input type="number" id="upcomingMoviesCacheDuration" min="5" max="1440" step="5" class="emby-input" />
+                            <div class="fieldDescription">
+                                How long to cache upcoming movies data. Default: 60 minutes (1 hour).
+                            </div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label class="inputLabel" for="upcomingSeriesCacheDuration">Upcoming Series Cache Duration (minutes)</label>
+                            <input type="number" id="upcomingSeriesCacheDuration" min="5" max="1440" step="5" class="emby-input" />
+                            <div class="fieldDescription">
+                                How long to cache upcoming series data. Default: 60 minutes (1 hour).
+                            </div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label class="inputLabel" for="collectionsCacheDuration">Collections Cache Duration (minutes)</label>
+                            <input type="number" id="collectionsCacheDuration" min="1" max="60" step="1" class="emby-input" />
+                            <div class="fieldDescription">
+                                How long to cache collection data. Default: 5 minutes.
+                            </div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label class="inputLabel" for="autoTagInterval">Auto-tag Interval (minutes)</label>
+                            <input type="number" id="autoTagInterval" min="1" max="60" step="1" class="emby-input" />
+                            <div class="fieldDescription">
+                                How often to run auto-tagging (if enabled). Default: 5 minutes.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div>
+                        <button is="emby-button" type="submit" class="raised button-submit block">
+                            <span>Save</span>
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            (function() {
+                const TheDwarfsHammerConfig = {
+                    pluginId: "a8f9f3e5-1234-5678-9abc-def012345678",
+
+                    loadConfiguration: function() {
+                        ApiClient.getPluginConfiguration(this.pluginId).then(function(config) {
+                            // API Configuration
+                            document.getElementById('tmdbApiKey').value = config.TmdbApiKey || '';
+
+                            // Feature Toggles
+                            document.getElementById('enableUpcomingMovies').checked = config.EnableUpcomingMovies;
+                            document.getElementById('enableUpcomingSeries').checked = config.EnableUpcomingSeries;
+                            document.getElementById('enableNoCollectionFilter').checked = config.EnableNoCollectionFilter;
+                            document.getElementById('enableSeriesCollectionsTab').checked = config.EnableSeriesCollectionsTab;
+
+                            // Cache Settings - convert milliseconds to minutes
+                            document.getElementById('upcomingMoviesCacheDuration').value = 
+                                (config.UpcomingMoviesCacheDuration / 60000) || 60;
+                            document.getElementById('upcomingSeriesCacheDuration').value = 
+                                (config.UpcomingSeriesCacheDuration / 60000) || 60;
+                            document.getElementById('collectionsCacheDuration').value = 
+                                (config.CollectionsCacheDuration / 60000) || 5;
+                            document.getElementById('autoTagInterval').value = 
+                                (config.AutoTagInterval / 60000) || 5;
+                        });
+                    },
+
+                    saveConfiguration: function(e) {
+                        e.preventDefault();
+                        Dashboard.showLoadingMsg();
+
+                        ApiClient.getPluginConfiguration(this.pluginId).then(function(config) {
+                            // Update API Configuration
+                            config.TmdbApiKey = document.getElementById('tmdbApiKey').value;
+
+                            // Update Feature Toggles
+                            config.EnableUpcomingMovies = document.getElementById('enableUpcomingMovies').checked;
+                            config.EnableUpcomingSeries = document.getElementById('enableUpcomingSeries').checked;
+                            config.EnableNoCollectionFilter = document.getElementById('enableNoCollectionFilter').checked;
+                            config.EnableSeriesCollectionsTab = document.getElementById('enableSeriesCollectionsTab').checked;
+
+                            // Update Cache Settings - convert minutes to milliseconds
+                            config.UpcomingMoviesCacheDuration = 
+                                parseInt(document.getElementById('upcomingMoviesCacheDuration').value) * 60000;
+                            config.UpcomingSeriesCacheDuration = 
+                                parseInt(document.getElementById('upcomingSeriesCacheDuration').value) * 60000;
+                            config.CollectionsCacheDuration = 
+                                parseInt(document.getElementById('collectionsCacheDuration').value) * 60000;
+                            config.AutoTagInterval = 
+                                parseInt(document.getElementById('autoTagInterval').value) * 60000;
+
+                            ApiClient.updatePluginConfiguration(TheDwarfsHammerConfig.pluginId, config).then(function() {
+                                Dashboard.hideLoadingMsg();
+                                Dashboard.processPluginConfigurationUpdateResult();
+                            }).catch(function(err) {
+                                Dashboard.hideLoadingMsg();
+                                Dashboard.alert('Error saving settings: ' + (err.message || err));
+                            });
+                        });
+                    }
+                };
+
+                // Initialize when page loads
+                document.getElementById('theDwarfsHammerConfigPage').addEventListener('pageshow', function() {
+                    TheDwarfsHammerConfig.loadConfiguration();
+                });
+
+                // Bind form submit
+                document.getElementById('theDwarfsHammerConfigForm').addEventListener('submit', function(e) {
+                    TheDwarfsHammerConfig.saveConfiguration(e);
+                });
+
+
+            })();
+        </script>
+    </div>
+</body>
+</html>
