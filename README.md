@@ -2,7 +2,7 @@
 
 **Enhanced collection management and content discovery for Jellyfin**
 
-![Plugin Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Plugin Version](https://img.shields.io/badge/version-1.0.0.0-blue)
 ![Jellyfin Version](https://img.shields.io/badge/jellyfin-10.9%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -83,6 +83,9 @@ sudo systemctl restart jellyfin
 
 ✅ **Done!** Refresh browser (Ctrl+F5)
 
+#### Option C: Install the File Transformation plugin **[TO DO]**
+
+
 ## 🎯 Usage
 
 - **Upcoming Content:** Movies/Shows → "Upcoming" tab
@@ -108,10 +111,6 @@ docker logs jellyfin | grep -i dwarf
 **Script not loading:**
 - Hard refresh (Ctrl+F5)
 - Check browser console (F12)
-
-**TMDB features not working:**
-- Verify API key in plugin settings
-- Check: `curl http://localhost:8096/Plugins/TheDwarfsHammer/Configuration/HasTMDB`
 
 ## 📜 License
 
