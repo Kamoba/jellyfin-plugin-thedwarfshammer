@@ -11,7 +11,7 @@
       "version": "1.0.0.0",
       "changelog": "Initial release with upcoming content discovery, collection management, and enhanced UI features",
       "targetAbi": "10.11.0.0",
-      "sourceUrl": "https://github.com/Kamoba/jellyfin-plugin-thedwarfshammer/releases/download/1.0.0.0/TDH.zip",
+      "sourceUrl": "https://github.com/Kamoba/jellyfin-plugin-thedwarfshammer/releases/download/1.0.0.0/TheDwarfsHammer_1.0.0.0.zip",
       "checksum": "0d8a85fd1a8589141f67efb5d6be53ba",
       "timestamp": "2025-01-31T00:00:00Z"
     }]
