@@ -1,10 +1,16 @@
 # The Dwarf's Hammer 🔨
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/kamoba/jellyfin-plugin-thedwarfshammer/main/Screenshot.png" alt="The Dwarf's Hammer" width="200"/>
+</p>
+
 **Enhanced collection management and content discovery for Jellyfin, tested on 10.11.5**
 
 ![Plugin Version](https://img.shields.io/badge/version-1.0.0.0-blue)
 ![Jellyfin Version](https://img.shields.io/badge/jellyfin-10.9%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+
+![Upcoming Movies](https://raw.githubusercontent.com/kamoba/jellyfin-plugin-thedwarfshammer/main/screenshots/upcoming-movies.png)
 
 ## ✨ Features
 
