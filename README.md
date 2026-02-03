@@ -1,7 +1,7 @@
 # The Dwarf's Hammer 🔨
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/kamoba/jellyfin-plugin-thedwarfshammer/main/Screenshot.png" alt="The Dwarf's Hammer" width="200"/>
+  <img src="https://raw.githubusercontent.com/kamoba/jellyfin-plugin-thedwarfshammer/main/Screenshot.png" alt="The Dwarf's Hammer"/>
 </p>
 
 **Enhanced collection management and content discovery for Jellyfin, tested on 10.11.5**
