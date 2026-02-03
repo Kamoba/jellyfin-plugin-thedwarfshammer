@@ -49,6 +49,7 @@
 7. Find **The Dwarf's Hammer**
 8. Click **Install**
 9. **Restart Jellyfin**
+10. Refresh browser
 
 ### Step 2: Configure Plugin
 
@@ -56,6 +57,12 @@
 2. Get free TMDB API key from [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api) (Optional, needed for Upcomings)
 3. Paste API key
 4. Click **Save**
+5. **Dashboard → Scan All Libraries** (or use "Tag Non-Collection Movies" button on Dashboard)
+   - This tags movies not in collections with "NotInCollection" 
+   - Tags auto-update on each full library scan
+   - ⚠️ **Note:** Quick scans (Libraries → Movies → Scan Library) won't update tags - use full scan from Dashboard
+
+**Tip:** For ongoing updates, enable "Real-time Tagging" in plugin settings to automatically tag new movies as they're added.
 
 ### Step 3: Install Client Script
 
