@@ -122,7 +122,7 @@ docker logs jellyfin | grep -i dwarf
 
 ## 📜 License
 
-MIT License - see [LICENSE](LICENSE)
+MIT [License](LICENSE)
 
 ## 🙏 Credits
 
