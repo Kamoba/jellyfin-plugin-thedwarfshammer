@@ -1,6 +1,6 @@
 # The Dwarf's Hammer 🔨
 
-**Enhanced collection management and content discovery for Jellyfin**
+**Enhanced collection management and content discovery for Jellyfin, tested on 10.11.5**
 
 ![Plugin Version](https://img.shields.io/badge/version-1.0.0.0-blue)
 ![Jellyfin Version](https://img.shields.io/badge/jellyfin-10.9%2B-blue)
@@ -10,7 +10,10 @@
 
 ### 🎬 Upcoming Content
 - Upcoming Movies (Coming Soon + Top Rated)
-- Upcoming Series (Your Library + Trending + Top Rated)
+- Upcoming Series :
+  - Library: Upcoming episodes + last missing episode
+  - Trending
+  - Top Rated
 - TMDB integration with trailer playback
 - Genre filtering
 - "In Library" badges
@@ -18,7 +21,7 @@
 ### 📚 Collection Management
 - "No Collection" filter for Movies and Series
 - Series Collections tab
-- Auto-tagging for non-collection content, required for filtering
+- Auto-tagging for non-collection content, required for filtering movies only
 - Real-time sync option (admin only)
 
 ### 🔍 Enhanced UI
@@ -36,7 +39,7 @@
 3. **Name:** `The Dwarf's Hammer`
 4. **URL:** `https://raw.githubusercontent.com/kamoba/jellyfin-plugin-thedwarfshammer/main/manifest.json`
 5. Save
-6. Go to **Catalog** tab
+6. Go to **Plugins catalog** tab
 7. Find **The Dwarf's Hammer**
 8. Click **Install**
 9. **Restart Jellyfin**
@@ -44,18 +47,17 @@
 ### Step 2: Configure Plugin
 
 1. **Dashboard → Plugins → The Dwarf's Hammer**
-2. Get free TMDB API key from [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)
+2. Get free TMDB API key from [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api) (Optional, needed for Upcomings)
 3. Paste API key
-4. Enable desired features
-5. Click **Save**
+4. Click **Save**
 
 ### Step 3: Install Client Script
 
 Choose **one** method:
 
-#### Option A: JavaScript Injector Plugin (Recommended)
+#### Option A: JavaScript Injector Plugin
 
-1. Install [JavaScript Injector](https://github.com/n00bcodr/Jellyfin-JavaScript-Injector) from catalog
+1. Install [JavaScript Injector](https://github.com/n00bcodr/Jellyfin-JavaScript-Injector) from Plugins
 2. Restart Jellyfin
 3. Download: [thedwarfshammer.js](https://raw.githubusercontent.com/kamoba/jellyfin-plugin-thedwarfshammer/main/Web/thedwarfshammer.js)
 4. **Dashboard → Plugins → JavaScript Injector**
@@ -63,6 +65,7 @@ Choose **one** method:
 6. Refresh browser (Ctrl+F5)
 
 #### Option B: Manual Injection
+
 
 **Docker:**
 ```bash
@@ -79,11 +82,16 @@ sudo sed -i 's|</body>|<script src="thedwarfshammer.js"></script></body>|' /usr/
 sudo systemctl restart jellyfin
 ```
 
+**Or Edit index.html:**
+```
+Download script in same location then add `<script src="thedwarfshammer.js"></script>` before `</body>`
+```
+
+#### Option C: Install the File Transformation plugin **[TO DO]**
+
 ⚠️ Re-apply after Jellyfin updates
 
 ✅ **Done!** Refresh browser (Ctrl+F5)
-
-#### Option C: Install the File Transformation plugin **[TO DO]**
 
 
 ## 🎯 Usage
@@ -93,7 +101,7 @@ sudo systemctl restart jellyfin
 - **Missing Episodes:** Open any series/season → see missing episodes
 - **Auto-Tag:** Dashboard → "Tag Non-Collection Movies" button (admin only)
 
-💡 **Tip:** Press **Ctrl+F5** (or Cmd+Shift+R on Mac) to refresh cached data and fetch latest upcoming content from TMDB.
+💡 **Tip:** Press **Ctrl+F5** (or Cmd+Shift+R on Mac) to refresh cached data (default 1h) and fetch latest upcoming content from TMDB.
 
 ## 🔒 Security
 
