@@ -10,7 +10,6 @@
 ![Jellyfin Version](https://img.shields.io/badge/jellyfin-10.9%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-![Upcoming Movies](https://raw.githubusercontent.com/kamoba/jellyfin-plugin-thedwarfshammer/main/screenshots/upcoming-movies.png)
 
 ## ✨ Features
 
