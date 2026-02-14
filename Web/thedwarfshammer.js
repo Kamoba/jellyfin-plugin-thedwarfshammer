@@ -11,7 +11,7 @@
 
   // Check if user is admin
   let IS_ADMIN = false;
-  let devMode = false; // for logs
+  const devMode = false; // for logs
   let hasTMDB = false;
 
   const CONFIG = {
@@ -3961,7 +3961,7 @@ function isMissingSeriesCacheExpired(entry) {
   return !entry?.timestamp || (Date.now() - entry.timestamp > CONFIG.missingSeriesCacheTTL);
 }
 function getFreshCache() {
-  const cache = loadCache();
+  const cache = loadCache();  
 
   const oneExpired = Object.values(cache).some(isMissingSeriesCacheExpired);
 
@@ -5667,9 +5667,11 @@ async function injectMissingSeasons() {
       .map(s => s.season_number)
       .filter(n => n > 0);
 
-    const onlineCount = totalSeasons.length;
+    const lastSeason = showData.seasons.find(s => s.season_number === totalSeasons.length);
+    const onlineCount = lastSeason?.episode_count > 0 ? totalSeasons.length : totalSeasons.length - 1;
+    totalSeasons.length = onlineCount; // remove last season if not started yet (episode_count == 0)
 
-    consoleLog("TMDb seasons:", totalSeasons);
+    consoleLog("TMDb seasons:", totalSeasons, "local:", localCount, "online:", onlineCount);
 
     // 5️⃣ Update cache
     cache[seriesId] ??= { seasons: {}, episodes: {} };
@@ -5946,7 +5948,9 @@ let maxInitWait = 0;
       localStorage.removeItem(CONFIG.collectionsCache);
       localStorage.removeItem(CONFIG.seriesCollectionsCache);
       localStorage.removeItem(CONFIG.moviesCollectionsCache);
-      localStorage.removeItem(CONFIG.upcomingSeriesCache);            
+      localStorage.removeItem(CONFIG.upcomingSeriesCache);          
+      localStorage.removeItem(CONFIG.upcomingMoviesCache);  
+      localStorage.removeItem(CONFIG.missingSeriesCache);            
       consoleLog("✓ All caches cleared");
     },
     clearSeriesCache: clearSeriesCollectionsCache,

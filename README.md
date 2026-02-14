@@ -132,6 +132,9 @@ docker logs jellyfin | grep -i dwarf
 - Hard refresh (Ctrl+F5)
 - Check browser console (F12)
 
+**Uninstall**
+If you need to uninstall, it is advisable to first click on “Delete all tags” in the dashboard to avoid leaving orphaned tags (NotInCollection), even if they are harmless.
+
 ## 📜 License
 
 MIT [License](LICENSE)
