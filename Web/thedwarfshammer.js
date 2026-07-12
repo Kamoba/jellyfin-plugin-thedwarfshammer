@@ -5384,7 +5384,7 @@ function normalizeTitle(str) {
     .trim();
 }
 
-async function findTMDbIdByName(seriesName) {
+async function findTMDbIdByName(seriesName, premiereDate) {
   const clean = normalizeTitle(seriesName); 
   
 
@@ -5404,6 +5404,7 @@ async function findTMDbIdByName(seriesName) {
     if (name === clean || original === clean) score += 100;
     if (name.includes(clean) || original.includes(clean)) score += 40;
     if (clean.includes(name)) score += 30;
+    if(premiereDate?.slice(0, 10) === show.first_air_date) score += 100;
 
     if (show.number_of_seasons) score += show.number_of_seasons * 2;
     if (show.vote_count) score += Math.min(show.vote_count / 100, 20);
@@ -5507,13 +5508,24 @@ async function injectMissingEpisodes() {
 
     // 4️⃣ Resolve TMDb id
     let tmdbId = item.ProviderIds?.Tmdb;
+    // If TMDb id not found, try to find it in external urls
+    if (!tmdbId && item.ExternalUrls?.length) {
+      const tmdbLink = item.ExternalUrls.find(x => x.Name === "TMDB");
 
+      if (tmdbLink) {
+        const match = tmdbLink.Url.match(/\/tv\/(\d+)/);
+        if (match) {
+          tmdbId = match[1];
+          
+        }
+      }
+    }
     if (!tmdbId && item.ProviderIds?.Tvdb) {
       tmdbId = await findTMDbIdByTvdb(item.ProviderIds.Tvdb);
     }
 
     if (!tmdbId) {
-      tmdbId = await findTMDbIdByName(item.SeriesName);
+      tmdbId = await findTMDbIdByName(item.SeriesName, item.PremiereDate);
     }
 
     if (!tmdbId) {
@@ -5652,7 +5664,7 @@ async function injectMissingSeasons() {
     }
 
     if (!tmdbId) {
-      tmdbId = await findTMDbIdByName(item.Name);
+      tmdbId = await findTMDbIdByName(item.Name, item.PremiereDate);
     }
 
     if (!tmdbId) {
@@ -5740,7 +5752,7 @@ let maxInitWait = 0;
         
             // Wait for ApiClient to be ready
           if (!window.ApiClient?._currentUser) {
-            consoleLog("⏳ Waiting for ApiClient...");i
+            consoleLog("⏳ Waiting for ApiClient...");
             if (maxInitWait < 60) {              
               setTimeout(init, 500);
             }
@@ -5903,7 +5915,7 @@ let maxInitWait = 0;
         window.addEventListener("keydown", e => {
           if (e.key === "F5" && (e.ctrlKey || e.metaKey)) {
             consoleLog("⌨️ Ctrl+F5 detected, clearing cache...");
-            window.jellyfinTheDwarfsHammer?.clearCache?.(); jellyfinTheDwarfsHammer
+            window.jellyfinTheDwarfsHammer?.clearCache?.();
           }
         });
 
